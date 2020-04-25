@@ -1,8 +1,8 @@
 {
-  "name": "typescript-action",
+  "name": "chrome-extension-upload",
   "version": "0.0.0",
   "private": true,
-  "description": "TypeScript template action",
+  "description": "upload & publish extensions to the Chrome Web Store",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
@@ -15,14 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/typescript-action.git"
+    "url": "git+https://github.com/mnao305/chrome-extension-upload.git"
   },
   "keywords": [
     "actions",
     "node",
     "setup"
   ],
-  "author": "YourNameOrOrganization",
+  "author": "mnao305",
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.2.0"

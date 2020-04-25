@@ -1,6 +1,6 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Chrome extension upload action'
+description: 'upload & publish extensions to the Chrome Web Store'
+author: 'mnao305'
 inputs:
   myInput:              # change this
     description: 'input description here'

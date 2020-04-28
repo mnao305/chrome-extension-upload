@@ -25,7 +25,8 @@
   "author": "mnao305",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.2.0"
+    "@actions/core": "^1.2.0",
+    "chrome-webstore-upload": "^0.2.2"
   },
   "devDependencies": {
     "@types/jest": "^24.0.23",

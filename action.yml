@@ -2,7 +2,7 @@ name: 'Chrome extension upload action'
 description: 'upload & publish extensions to the Chrome Web Store'
 author: 'mnao305'
 inputs:
-  filea-ath:
+  file-path:
     description: 'path & filename to a zip file'
     required: true
   extension-id:

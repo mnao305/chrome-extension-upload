@@ -1,4 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as core from '@actions/core'
+import glob from 'glob'
+import fs from 'fs'
+
+function uploadFile(webStore: any, filePath: string): void {
+  const myZipFile = fs.createReadStream(filePath)
+  webStore.uploadExisting(myZipFile).then((uploadRes: any) => {
+    core.debug(uploadRes)
+    webStore.publish().then((publishRes: any) => {
+      core.debug(publishRes)
+    })
+  })
+}
 
 async function run(): Promise<void> {
   try {
@@ -7,8 +20,20 @@ async function run(): Promise<void> {
     const clientId = core.getInput('client-id', {required: true})
     const clientSecret = core.getInput('client-secret', {required: true})
     const refreshToken = core.getInput('refresh-token', {required: true})
-    const publishTarget = core.getInput('publish-target', {required: true})
-    const glob = core.getInput('glob')
+    const globFlg = core.getInput('glob') as 'true' | 'false'
+
+    const webStore = require('chrome-webstore-upload')({
+      extensionId,
+      clientId,
+      clientSecret,
+      refreshToken
+    })
+
+    if (globFlg === 'true') {
+      // TODO: *が入る場合の処理を書く
+    } else {
+      uploadFile(webStore, filePath)
+    }
   } catch (error) {
     core.setFailed(error.message)
   }

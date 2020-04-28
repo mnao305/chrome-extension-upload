@@ -2,9 +2,24 @@ name: 'Chrome extension upload action'
 description: 'upload & publish extensions to the Chrome Web Store'
 author: 'mnao305'
 inputs:
-  myInput:              # change this
-    description: 'input description here'
-    default: 'default value if applicable'
+  filea-ath:
+    description: 'path & filename to a zip file'
+    required: true
+  extension-id:
+    description: 'extension id'
+    required: true
+  client-id:
+    description: 'client id'
+    required: true
+  client-secret:
+    description: 'client secret'
+    required: true
+  refresh-token:
+    description: 'refresh token'
+    required: true
+  glob:
+    description: 'if true the file can be a glob pattern'
+    default: false
 runs:
   using: 'node12'
   main: 'dist/index.js'

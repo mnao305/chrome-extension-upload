@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as core from '@actions/core'
 import glob from 'glob'
 import fs from 'fs'
@@ -30,7 +29,12 @@ async function run(): Promise<void> {
     })
 
     if (globFlg === 'true') {
-      // TODO: *が入る場合の処理を書く
+      const files = glob.sync(filePath)
+      if (files.length > 0) {
+        uploadFile(webStore, files[0])
+      } else {
+        core.setFailed('No files to match.')
+      }
     } else {
       uploadFile(webStore, filePath)
     }

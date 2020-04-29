@@ -1,6 +1,9 @@
 name: 'Chrome extension upload action'
 description: 'upload & publish extensions to the Chrome Web Store'
 author: 'mnao305'
+branding:
+  color: blue
+  icon: upload-cloud
 inputs:
   file-path:
     description: 'path & filename to a zip file'

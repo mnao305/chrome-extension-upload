@@ -16,6 +16,7 @@ Optional Arguments
 
 - `glob`
   - If you set it to true, you can specify the file as a glob pattern.
+  - Please note that only the first match will be uploaded.
 
 
 Want to know how to make a CLIENT ID, etc.?  

@@ -4,12 +4,24 @@ import fs from 'fs'
 
 function uploadFile(webStore: any, filePath: string): void {
   const myZipFile = fs.createReadStream(filePath)
-  webStore.uploadExisting(myZipFile).then((uploadRes: any) => {
-    core.debug(uploadRes)
-    webStore.publish().then((publishRes: any) => {
-      core.debug(publishRes)
+  webStore
+    .uploadExisting(myZipFile)
+    .then((uploadRes: any) => {
+      core.debug(uploadRes)
+      webStore
+        .publish()
+        .then((publishRes: any) => {
+          core.debug(publishRes)
+        })
+        .catch((e: any) => {
+          core.error(e)
+          core.setFailed('publish error')
+        })
     })
-  })
+    .catch((e: any) => {
+      core.error(e)
+      core.setFailed('upload error')
+    })
 }
 
 async function run(): Promise<void> {

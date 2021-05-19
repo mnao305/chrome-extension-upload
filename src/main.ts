@@ -1,6 +1,6 @@
 import * as core from '@actions/core'
-import glob from 'glob'
 import fs from 'fs'
+import glob from 'glob'
 
 function uploadFile(webStore: any, filePath: string): void {
   const myZipFile = fs.createReadStream(filePath)
@@ -15,12 +15,16 @@ function uploadFile(webStore: any, filePath: string): void {
         })
         .catch((e: any) => {
           core.error(e)
-          core.setFailed('publish error')
+          core.setFailed(
+            'publish error - You will need to access the Chrome Web Store Developer Dashboard and publish manually.'
+          )
         })
     })
     .catch((e: any) => {
       core.error(e)
-      core.setFailed('upload error')
+      core.setFailed(
+        'upload error - You will need to go to the Chrome Web Store Developer Dashboard and upload it manually.'
+      )
     })
 }
 

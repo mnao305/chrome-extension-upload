@@ -9,7 +9,6 @@ You must provide:
   - The path to the zip file. ex) `dist/hoge.zip`
 - `extension-id`
 - `client-id`
-- `client-secret`
 - `refresh-token`
 
 Optional Arguments
@@ -54,7 +53,6 @@ jobs:
         file-path: dist/file.zip
         extension-id: hogefuga(extension id)
         client-id: ${{ secrets.CLIENT_ID }}
-        client-secret: ${{ secrets.CLIENT_SECRET }}
         refresh-token: ${{ secrets.REFRESH_TOKEN }}
 ```
 
@@ -88,7 +86,6 @@ jobs:
         file-path: dist/*.zip
         extension-id: hogefuga(extension id)
         client-id: ${{ secrets.CLIENT_ID }}
-        client-secret: ${{ secrets.CLIENT_SECRET }}
         refresh-token: ${{ secrets.REFRESH_TOKEN }}
         glob: true
 ```

@@ -1,4 +1,5 @@
 # chrome-extension-upload
+
 This Action allows you to automatically upload and publish browser extensions to the Chrome web store.
 
 ## Input variables
@@ -16,7 +17,6 @@ Optional Arguments
 - `glob`
   - If you set it to true, you can specify the file as a glob pattern.
   - Please note that only the first match will be uploaded.
-
 
 Want to know how to make a CLIENT ID, etc.?  
 [Reference link](https://github.com/DrewML/chrome-webstore-upload/blob/master/How%20to%20generate%20Google%20API%20keys.md)
@@ -48,7 +48,7 @@ jobs:
         npm ci
         npm run build
     - name: Upload & release
-      uses: mnao305/chrome-extension-upload@1.1.1
+      uses: mnao305/chrome-extension-upload@2.0.0
       with:
         file-path: dist/file.zip
         extension-id: hogefuga(extension id)
@@ -81,7 +81,7 @@ jobs:
         npm ci
         npm run build
     - name: Upload & release
-      uses: mnao305/chrome-extension-upload@1.1.1
+      uses: mnao305/chrome-extension-upload@2.0.0
       with:
         file-path: dist/*.zip
         extension-id: hogefuga(extension id)

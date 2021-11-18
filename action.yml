@@ -20,6 +20,9 @@ inputs:
   glob:
     description: 'if true the file can be a glob pattern'
     default: false
+  publish:
+    description: 'if true package will be automatically published'
+    default: true
 runs:
   using: 'node12'
   main: 'dist/index.js'

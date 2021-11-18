@@ -3753,22 +3753,24 @@ const core = __importStar(__webpack_require__(470));
 const fs_1 = __importDefault(__webpack_require__(747));
 const glob_1 = __importDefault(__webpack_require__(402));
 const chrome_webstore_upload_1 = __importDefault(__webpack_require__(673));
-function uploadFile(webStore, filePath) {
+function uploadFile(webStore, filePath, publishFlg) {
     const myZipFile = fs_1.default.createReadStream(filePath);
     webStore
         .uploadExisting(myZipFile)
         .then((uploadRes) => {
         console.log(uploadRes);
         core.debug(uploadRes);
-        webStore
-            .publish()
-            .then((publishRes) => {
-            core.debug(publishRes);
-        })
-            .catch((e) => {
-            core.error(e);
-            core.setFailed('publish error - You will need to access the Chrome Web Store Developer Dashboard and publish manually.');
-        });
+        if (publishFlg === 'true') {
+            webStore
+                .publish()
+                .then((publishRes) => {
+                core.debug(publishRes);
+            })
+                .catch((e) => {
+                core.error(e);
+                core.setFailed('publish error - You will need to access the Chrome Web Store Developer Dashboard and publish manually.');
+            });
+        }
     })
         .catch((e) => {
         console.log(e);
@@ -3784,6 +3786,9 @@ function run() {
             const clientId = core.getInput('client-id', { required: true });
             const refreshToken = core.getInput('refresh-token', { required: true });
             const globFlg = core.getInput('glob');
+            const publishFlg = core.getInput('publish');
+            console.log(publishFlg);
+            core.debug(publishFlg);
             const webStore = chrome_webstore_upload_1.default({
                 extensionId,
                 clientId,
@@ -3792,14 +3797,14 @@ function run() {
             if (globFlg === 'true') {
                 const files = glob_1.default.sync(filePath);
                 if (files.length > 0) {
-                    uploadFile(webStore, files[0]);
+                    uploadFile(webStore, files[0], publishFlg);
                 }
                 else {
                     core.setFailed('No files to match.');
                 }
             }
             else {
-                uploadFile(webStore, filePath);
+                uploadFile(webStore, filePath, publishFlg);
             }
         }
         catch (error) {

@@ -3,14 +3,15 @@ import fs from 'fs'
 import glob from 'glob'
 import chromeWebstoreUpload from 'chrome-webstore-upload'
 
-function uploadFile(webStore: any, filePath: string): void {
+function uploadFile(webStore: any, filePath: string, publishFlg: string): void {
   const myZipFile = fs.createReadStream(filePath)
   webStore
     .uploadExisting(myZipFile)
     .then((uploadRes: any) => {
       console.log(uploadRes)
       core.debug(uploadRes)
-      webStore
+      if (publishFlg === 'true') {
+        webStore
         .publish()
         .then((publishRes: any) => {
           core.debug(publishRes)
@@ -21,6 +22,7 @@ function uploadFile(webStore: any, filePath: string): void {
             'publish error - You will need to access the Chrome Web Store Developer Dashboard and publish manually.'
           )
         })
+      }
     })
     .catch((e: any) => {
       console.log(e)
@@ -38,6 +40,7 @@ async function run(): Promise<void> {
     const clientId = core.getInput('client-id', {required: true})
     const refreshToken = core.getInput('refresh-token', {required: true})
     const globFlg = core.getInput('glob') as 'true' | 'false'
+    const publishFlg = core.getInput('publish') as 'true' | 'false'
 
     const webStore = chromeWebstoreUpload({
       extensionId,
@@ -48,12 +51,12 @@ async function run(): Promise<void> {
     if (globFlg === 'true') {
       const files = glob.sync(filePath)
       if (files.length > 0) {
-        uploadFile(webStore, files[0])
+        uploadFile(webStore, files[0], publishFlg)
       } else {
         core.setFailed('No files to match.')
       }
     } else {
-      uploadFile(webStore, filePath)
+      uploadFile(webStore, filePath, publishFlg)
     }
   } catch (error) {
     core.setFailed((error as Error).message)

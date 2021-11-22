@@ -12,16 +12,16 @@ function uploadFile(webStore: any, filePath: string, publishFlg: string): void {
       core.debug(uploadRes)
       if (publishFlg === 'true') {
         webStore
-        .publish()
-        .then((publishRes: any) => {
-          core.debug(publishRes)
-        })
-        .catch((e: any) => {
-          core.error(e)
-          core.setFailed(
-            'publish error - You will need to access the Chrome Web Store Developer Dashboard and publish manually.'
-          )
-        })
+          .publish()
+          .then((publishRes: any) => {
+            core.debug(publishRes)
+          })
+          .catch((e: any) => {
+            core.error(e)
+            core.setFailed(
+              'publish error - You will need to access the Chrome Web Store Developer Dashboard and publish manually.'
+            )
+          })
       }
     })
     .catch((e: any) => {

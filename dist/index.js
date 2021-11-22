@@ -3787,8 +3787,6 @@ function run() {
             const refreshToken = core.getInput('refresh-token', { required: true });
             const globFlg = core.getInput('glob');
             const publishFlg = core.getInput('publish');
-            console.log(publishFlg);
-            core.debug(publishFlg);
             const webStore = chrome_webstore_upload_1.default({
                 extensionId,
                 clientId,

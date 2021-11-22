@@ -51,7 +51,7 @@ jobs:
         npm ci
         npm run build
     - name: Upload & release
-      uses: mnao305/chrome-extension-upload@2.0.0
+      uses: mnao305/chrome-extension-upload@2.1.0
       with:
         file-path: dist/file.zip
         extension-id: hogefuga(extension id)
@@ -84,7 +84,7 @@ jobs:
         npm ci
         npm run build
     - name: Upload & release
-      uses: mnao305/chrome-extension-upload@2.0.0
+      uses: mnao305/chrome-extension-upload@2.1.0
       with:
         file-path: dist/*.zip
         extension-id: hogefuga(extension id)
@@ -118,7 +118,7 @@ jobs:
         npm ci
         npm run build
     - name: Upload & release
-      uses: mnao305/chrome-extension-upload@2.0.0
+      uses: mnao305/chrome-extension-upload@2.1.0
       with:
         file-path: dist/file.zip
         extension-id: hogefuga(extension id)

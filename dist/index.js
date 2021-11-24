@@ -3753,7 +3753,7 @@ const core = __importStar(__webpack_require__(470));
 const fs_1 = __importDefault(__webpack_require__(747));
 const glob_1 = __importDefault(__webpack_require__(402));
 const chrome_webstore_upload_1 = __importDefault(__webpack_require__(673));
-function uploadFile(webStore, filePath, publishFlg) {
+function uploadFile(webStore, filePath, publishFlg, publishTarget) {
     const myZipFile = fs_1.default.createReadStream(filePath);
     webStore
         .uploadExisting(myZipFile)
@@ -3762,7 +3762,7 @@ function uploadFile(webStore, filePath, publishFlg) {
         core.debug(uploadRes);
         if (publishFlg === 'true') {
             webStore
-                .publish()
+                .publish(publishTarget)
                 .then((publishRes) => {
                 core.debug(publishRes);
             })
@@ -3787,6 +3787,7 @@ function run() {
             const refreshToken = core.getInput('refresh-token', { required: true });
             const globFlg = core.getInput('glob');
             const publishFlg = core.getInput('publish');
+            const publishTarget = core.getInput('publish-target');
             const webStore = chrome_webstore_upload_1.default({
                 extensionId,
                 clientId,
@@ -3795,14 +3796,14 @@ function run() {
             if (globFlg === 'true') {
                 const files = glob_1.default.sync(filePath);
                 if (files.length > 0) {
-                    uploadFile(webStore, files[0], publishFlg);
+                    uploadFile(webStore, files[0], publishFlg, publishTarget);
                 }
                 else {
                     core.setFailed('No files to match.');
                 }
             }
             else {
-                uploadFile(webStore, filePath, publishFlg);
+                uploadFile(webStore, filePath, publishFlg, publishTarget);
             }
         }
         catch (error) {

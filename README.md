@@ -126,3 +126,39 @@ jobs:
         refresh-token: ${{ secrets.REFRESH_TOKEN }}
         publish: false
 ```
+
+
+Example with `publish-target` for publishing to `trustedTesters`:
+
+```yaml
+name: Test
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    name: Publish webextension
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 12
+    - name: Build
+      run: |
+        npm ci
+        npm run build
+    - name: Upload & release
+      uses: mnao305/chrome-extension-upload@2.1.0
+      with:
+        file-path: dist/file.zip
+        extension-id: hogefuga(extension id)
+        client-id: ${{ secrets.CLIENT_ID }}
+        refresh-token: ${{ secrets.REFRESH_TOKEN }}
+        publish-target: trustedTesters
+
+```

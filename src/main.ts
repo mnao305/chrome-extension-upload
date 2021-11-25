@@ -3,7 +3,12 @@ import fs from 'fs'
 import glob from 'glob'
 import chromeWebstoreUpload from 'chrome-webstore-upload'
 
-function uploadFile(webStore: any, filePath: string, publishFlg: string): void {
+function uploadFile(
+  webStore: any,
+  filePath: string,
+  publishFlg: string,
+  publishTarget: string
+): void {
   const myZipFile = fs.createReadStream(filePath)
   webStore
     .uploadExisting(myZipFile)
@@ -12,7 +17,7 @@ function uploadFile(webStore: any, filePath: string, publishFlg: string): void {
       core.debug(uploadRes)
       if (publishFlg === 'true') {
         webStore
-          .publish()
+          .publish(publishTarget)
           .then((publishRes: any) => {
             core.debug(publishRes)
           })
@@ -41,6 +46,7 @@ async function run(): Promise<void> {
     const refreshToken = core.getInput('refresh-token', {required: true})
     const globFlg = core.getInput('glob') as 'true' | 'false'
     const publishFlg = core.getInput('publish') as 'true' | 'false'
+    const publishTarget = core.getInput('publish-target')
 
     const webStore = chromeWebstoreUpload({
       extensionId,
@@ -51,12 +57,12 @@ async function run(): Promise<void> {
     if (globFlg === 'true') {
       const files = glob.sync(filePath)
       if (files.length > 0) {
-        uploadFile(webStore, files[0], publishFlg)
+        uploadFile(webStore, files[0], publishFlg, publishTarget)
       } else {
         core.setFailed('No files to match.')
       }
     } else {
-      uploadFile(webStore, filePath, publishFlg)
+      uploadFile(webStore, filePath, publishFlg, publishTarget)
     }
   } catch (error) {
     core.setFailed((error as Error).message)

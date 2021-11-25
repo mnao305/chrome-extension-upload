@@ -23,6 +23,10 @@ inputs:
   publish:
     description: 'if true package will be automatically published'
     default: true
+  publish-target:
+    required: false
+    description: 'target of publish (`default` or `trustedTesters`)'
+    default: "default"
 runs:
   using: 'node12'
   main: 'dist/index.js'

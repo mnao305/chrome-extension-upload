@@ -22,10 +22,12 @@ inputs:
     required: true
   glob:
     description: 'if true the file can be a glob pattern'
-    default: false
+    required: false
+    default: "false"
   publish:
     description: 'if true package will be automatically published'
-    default: true
+    required: false
+    default: "true"
   publish-target:
     required: false
     description: 'target of publish (`default` or `trustedTesters`)'

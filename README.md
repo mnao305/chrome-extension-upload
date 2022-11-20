@@ -2,25 +2,20 @@
 
 This Action allows you to automatically upload and publish browser extensions to the Chrome web store.
 
+This action is a wrapper for [chrome-webstore-upload](https://github.com/fregante/chrome-webstore-upload).
+
 ## Input variables
 
-You must provide:
-
-- `file-path`
-  - The path to the zip file. ex) `dist/hoge.zip`
-- `extension-id`
-- `client-id`
-- `client-secret`
-- `refresh-token`
-
-Optional Arguments
-
-- `glob`
-  - If you set it to true, you can specify the file as a glob pattern.
-  - Please note that only the first match will be uploaded.
-- `publish`
-  - If you set it to false, the extension will not be published. Default as true
-  - Use this option if you want to upload the extension but not publish it for testing.
+| name          | required | description                                                                                                                                                          |
+| ------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| file-path     | true     | The path to the zip file. ex) `dist/hoge.zip`                                                                                                                        |
+| extension-id  | true     |                                                                                                                                                                      |
+| client-id     | true     |                                                                                                                                                                      |
+| client-secret | true     |                                                                                                                                                                      |
+| client-secret | true     |                                                                                                                                                                      |
+| refresh-token | true     |                                                                                                                                                                      |
+| glob          | false    | If you set it to true, you can specify the file as a glob pattern.<br>Please note that only the first match will be uploaded.                                        |
+| publish       | false    | If you set it to false, the extension will not be published. Default as true.<br>Use this option if you want to upload the extension but not publish it for testing. |
 
 Want to know how to make a CLIENT ID, etc.?  
 [Reference link](https://github.com/DrewML/chrome-webstore-upload/blob/master/How%20to%20generate%20Google%20API%20keys.md)

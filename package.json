@@ -1,6 +1,6 @@
 {
   "name": "chrome-extension-upload",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "private": true,
   "description": "upload & publish extensions to the Chrome Web Store",
   "main": "lib/main.js",

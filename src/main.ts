@@ -18,7 +18,8 @@ function uploadFile(
 
       if (
         uploadRes.uploadState &&
-        (uploadRes.uploadState === 'FAILURE' || uploadRes.uploadState === 'NOT_FOUND')
+        (uploadRes.uploadState === 'FAILURE' ||
+          uploadRes.uploadState === 'NOT_FOUND')
       ) {
         uploadRes.itemError.forEach((itemError: any) => {
           core.error(

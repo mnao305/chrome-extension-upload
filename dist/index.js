@@ -50,7 +50,8 @@ function uploadFile(webStore, filePath, publishFlg, publishTarget) {
         console.log(uploadRes);
         core.debug(uploadRes);
         if (uploadRes.uploadState &&
-            (uploadRes.uploadState === 'FAILURE' || uploadRes.uploadState === 'NOT_FOUND')) {
+            (uploadRes.uploadState === 'FAILURE' ||
+                uploadRes.uploadState === 'NOT_FOUND')) {
             uploadRes.itemError.forEach((itemError) => {
                 core.error(Error(`${itemError.error_detail} (${itemError.error_code})`));
             });

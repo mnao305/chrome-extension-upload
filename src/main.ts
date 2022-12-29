@@ -15,6 +15,23 @@ function uploadFile(
     .then((uploadRes: any) => {
       console.log(uploadRes)
       core.debug(uploadRes)
+
+      if (
+        uploadRes.uploadState &&
+        (uploadRes.uploadState === 'FAILURE' ||
+          uploadRes.uploadState === 'NOT_FOUND')
+      ) {
+        uploadRes.itemError.forEach((itemError: any) => {
+          core.error(
+            Error(`${itemError.error_detail} (${itemError.error_code})`)
+          )
+        })
+        core.setFailed(
+          'upload error - You will need to go to the Chrome Web Store Developer Dashboard and upload it manually.'
+        )
+        return
+      }
+
       if (publishFlg === 'true') {
         webStore
           .publish(publishTarget)

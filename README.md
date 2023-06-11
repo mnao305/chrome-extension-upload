@@ -8,11 +8,10 @@ This action is a wrapper for [chrome-webstore-upload](https://github.com/fregant
 
 | name          | required | description                                                                                                                                                          |
 | ------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| file-path     | true     | The path to the zip file. ex) `dist/hoge.zip`                                                                                                                        |
+| file-path     | true     | The path to the zip file. ex. `dist/hoge.zip`                                                                                                                        |
 | extension-id  | true     |                                                                                                                                                                      |
 | client-id     | true     |                                                                                                                                                                      |
-| client-secret | true     |                                                                                                                                                                      |
-| client-secret | true     |                                                                                                                                                                      |
+| client-secret | true     |                                                                                                                                                                      |                                                                                                                                                                     |
 | refresh-token | true     |                                                                                                                                                                      |
 | glob          | false    | If you set it to true, you can specify the file as a glob pattern.<br>Please note that only the first match will be uploaded.                                        |
 | publish       | false    | If you set it to false, the extension will not be published. Default as true.<br>Use this option if you want to upload the extension but not publish it for testing. |
@@ -159,5 +158,4 @@ jobs:
         client-secret: ${{ secrets.CLIENT_SECRET }}
         refresh-token: ${{ secrets.REFRESH_TOKEN }}
         publish-target: trustedTesters
-
 ```

@@ -11,7 +11,7 @@ This action is a wrapper for [chrome-webstore-upload](https://github.com/fregant
 | file-path     | true     | The path to the zip file. ex. `dist/hoge.zip`                                                                                                                        |
 | extension-id  | true     |                                                                                                                                                                      |
 | client-id     | true     |                                                                                                                                                                      |
-| client-secret | true     |                                                                                                                                                                      |                                                                                                                                                                     |
+| client-secret | true     |                                                                                                                                                                      |  |
 | refresh-token | true     |                                                                                                                                                                      |
 | glob          | false    | If you set it to true, you can specify the file as a glob pattern.<br>Please note that only the first match will be uploaded.                                        |
 | publish       | false    | If you set it to false, the extension will not be published. Default as true.<br>Use this option if you want to upload the extension but not publish it for testing. |
@@ -40,13 +40,13 @@ jobs:
     - uses: actions/checkout@v1
     - uses: actions/setup-node@v1
       with:
-        node-version: 12
+        node-version: 20
     - name: Build
       run: |
         npm ci
         npm run build
     - name: Upload & release
-      uses: mnao305/chrome-extension-upload@v4.0.1
+      uses: mnao305/chrome-extension-upload@v5.0.0
       with:
         file-path: dist/file.zip
         extension-id: hogefuga(extension id)
@@ -74,13 +74,13 @@ jobs:
     - uses: actions/checkout@v1
     - uses: actions/setup-node@v1
       with:
-        node-version: 12
+        node-version: 20
     - name: Build
       run: |
         npm ci
         npm run build
     - name: Upload & release
-      uses: mnao305/chrome-extension-upload@v4.0.1
+      uses: mnao305/chrome-extension-upload@v5.0.0
       with:
         file-path: dist/*.zip
         extension-id: hogefuga(extension id)
@@ -109,13 +109,13 @@ jobs:
     - uses: actions/checkout@v1
     - uses: actions/setup-node@v1
       with:
-        node-version: 12
+        node-version: 20
     - name: Build
       run: |
         npm ci
         npm run build
     - name: Upload & release
-      uses: mnao305/chrome-extension-upload@v4.0.1
+      uses: mnao305/chrome-extension-upload@v5.0.0
       with:
         file-path: dist/file.zip
         extension-id: hogefuga(extension id)
@@ -144,13 +144,13 @@ jobs:
     - uses: actions/checkout@v1
     - uses: actions/setup-node@v1
       with:
-        node-version: 12
+        node-version: 20
     - name: Build
       run: |
         npm ci
         npm run build
     - name: Upload & release
-      uses: mnao305/chrome-extension-upload@v4.0.1
+      uses: mnao305/chrome-extension-upload@v5.0.0
       with:
         file-path: dist/file.zip
         extension-id: hogefuga(extension id)

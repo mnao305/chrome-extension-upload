@@ -25,25 +25,29 @@
   "author": "mnao305",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.2.6",
-    "chrome-webstore-upload": "^1.0.0",
-    "glob": "^7.1.6"
+    "@actions/core": "^1.11.1",
+    "axios": "^1.7.9",
+    "chrome-webstore-upload": "^4.0.0",
+    "glob": "^7.2.3"
   },
   "devDependencies": {
-    "@types/glob": "^7.1.1",
-    "@types/jest": "^27.0.2",
-    "@types/node": "^12.7.12",
-    "@typescript-eslint/eslint-plugin": "^5.3.0",
-    "@typescript-eslint/parser": "^5.3.0",
-    "@vercel/ncc": "^0.36.0",
-    "eslint": "^8.2.0",
-    "eslint-plugin-github": "^4.3.3",
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@types/glob": "^7.2.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "@vercel/ncc": "^0.36.1",
+    "babel-jest": "^27.3.1",
+    "eslint": "^8.57.1",
+    "eslint-plugin-github": "^4.10.2",
     "eslint-plugin-jest": "^22.21.0",
-    "jest": "^27.3.1",
-    "jest-circus": "^27.3.1",
-    "js-yaml": "^3.13.1",
+    "jest": "^27.5.1",
+    "jest-circus": "^27.5.1",
+    "js-yaml": "^3.14.1",
     "prettier": "^1.19.1",
-    "ts-jest": "^27.0.7",
-    "typescript": "^3.6.4"
+    "ts-jest": "^27.1.5",
+    "typescript": "^4.9.5"
   }
 }

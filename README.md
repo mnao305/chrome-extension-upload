@@ -40,13 +40,13 @@ jobs:
     - uses: actions/checkout@v1
     - uses: actions/setup-node@v1
       with:
-        node-version: 20
+        node-version: 24
     - name: Build
       run: |
         npm ci
         npm run build
     - name: Upload & release
-      uses: mnao305/chrome-extension-upload@v5.0.0
+      uses: mnao305/chrome-extension-upload@v6.0.0
       with:
         file-path: dist/file.zip
         extension-id: hogefuga(extension id)
@@ -74,13 +74,13 @@ jobs:
     - uses: actions/checkout@v1
     - uses: actions/setup-node@v1
       with:
-        node-version: 20
+        node-version: 24
     - name: Build
       run: |
         npm ci
         npm run build
     - name: Upload & release
-      uses: mnao305/chrome-extension-upload@v5.0.0
+      uses: mnao305/chrome-extension-upload@v6.0.0
       with:
         file-path: dist/*.zip
         extension-id: hogefuga(extension id)
@@ -109,13 +109,13 @@ jobs:
     - uses: actions/checkout@v1
     - uses: actions/setup-node@v1
       with:
-        node-version: 20
+        node-version: 24
     - name: Build
       run: |
         npm ci
         npm run build
     - name: Upload & release
-      uses: mnao305/chrome-extension-upload@v5.0.0
+      uses: mnao305/chrome-extension-upload@v6.0.0
       with:
         file-path: dist/file.zip
         extension-id: hogefuga(extension id)
@@ -144,13 +144,13 @@ jobs:
     - uses: actions/checkout@v1
     - uses: actions/setup-node@v1
       with:
-        node-version: 20
+        node-version: 24
     - name: Build
       run: |
         npm ci
         npm run build
     - name: Upload & release
-      uses: mnao305/chrome-extension-upload@v5.0.0
+      uses: mnao305/chrome-extension-upload@v6.0.0
       with:
         file-path: dist/file.zip
         extension-id: hogefuga(extension id)

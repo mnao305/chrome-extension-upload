@@ -32,6 +32,13 @@ inputs:
     required: false
     description: 'target of publish (`default` or `trustedTesters`)'
     default: "default"
+  cancel-review:
+    description: 'If you want to cancel the pending review before upload, set "true". default is "false"'
+    required: false
+    default: 'false'
+  publisher-id:
+    description: 'Publisher ID, required if "cancel-review" is "true"'
+    required: false
 runs:
   using: 'node24'
   main: 'dist/index.js'

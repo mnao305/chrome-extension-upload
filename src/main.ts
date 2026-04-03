@@ -2,6 +2,7 @@ import * as core from '@actions/core'
 import fs from 'fs'
 import glob from 'glob'
 import chromeWebstoreUpload from 'chrome-webstore-upload'
+import axios from 'axios'
 
 function uploadFile(
   webStore: any,
@@ -65,6 +66,8 @@ async function run(): Promise<void> {
     const globFlg = core.getInput('glob') as 'true' | 'false'
     const publishFlg = core.getInput('publish') as 'true' | 'false'
     const publishTarget = core.getInput('publish-target')
+    const cancelReviewFlg = core.getInput('cancel-review') as 'true' | 'false'
+    const publisherId = core.getInput('publisher-id')
 
     const webStore = chromeWebstoreUpload({
       extensionId,
@@ -72,6 +75,39 @@ async function run(): Promise<void> {
       clientSecret,
       refreshToken
     })
+
+    if (cancelReviewFlg === 'true') {
+      if (!publisherId) {
+        core.setFailed('publisher-id is required when cancel-review is true.')
+        return
+      }
+      try {
+        const token = await webStore.fetchToken()
+        const cancelUrl = `https://chromewebstore.googleapis.com/v2/publishers/${publisherId}/items/${extensionId}:cancelSubmission`
+        
+        core.info('Attempting to cancel pending review...')
+        await axios.post(
+          cancelUrl, 
+          {}, 
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'x-goog-api-version': '2'
+            }
+          }
+        )
+        core.info('Successfully canceled pending review.')
+        
+      } catch (error: any) {
+        // If the error is not "no active submission", we might want to fail or warn.
+        // For now, let's log it. If it fails, maybe there was no review to cancel.
+        // We'll proceed to upload.
+        core.warning(`Failed to cancel review: ${error.message}`)
+        if (error.response) {
+            core.debug(JSON.stringify(error.response.data))
+        }
+      }
+    }
 
     if (globFlg === 'true') {
       const files = glob.sync(filePath)

@@ -1,6 +1,6 @@
 # chrome-extension-upload
 
-This Action allows you to automatically upload and publish browser extensions to the Chrome web store.
+This Action allows you to automatically upload and publish browser extensions to the Chrome Web Store.
 
 This action is a wrapper for [chrome-webstore-upload](https://github.com/fregante/chrome-webstore-upload) and uses Chrome Web Store API v2.
 
@@ -20,10 +20,9 @@ This action is a wrapper for [chrome-webstore-upload](https://github.com/fregant
 | client-secret  | true     | The OAuth client secret.                                                                                                                                             |
 | refresh-token  | true     | The OAuth refresh token.                                                                                                                                             |
 | glob           | false    | If you set it to true, you can specify the file as a glob pattern.<br>Please note that only the alphabetically first match will be uploaded.                         |
-| publish        | false    | Defaults to `true`. Set to `false` to upload without publishing. A successful publish request may still be pending review. |
+| publish        | false    | Defaults to `true`. Set to `false` to upload without publishing. Publishing may require review before the extension becomes available. |
 
-Want to know how to make a CLIENT ID, etc.?  
-[Reference link](https://developer.chrome.com/docs/webstore/using-api)
+See [Google's guide](https://developer.chrome.com/docs/webstore/using-api) for OAuth setup instructions.
 
 ## Usage
 
@@ -51,12 +50,12 @@ jobs:
       run: |
         npm ci
         npm run build
-    - name: Upload & release
+    - name: Upload and publish
       uses: mnao305/chrome-extension-upload@v7.0.0
       with:
         file-path: dist/file.zip
-        extension-id: hogefuga(extension id)
-        publisher-id: hogefuga(publisher id)
+        extension-id: YOUR_EXTENSION_ID
+        publisher-id: YOUR_PUBLISHER_ID
         client-id: ${{ secrets.CLIENT_ID }}
         client-secret: ${{ secrets.CLIENT_SECRET }}
         refresh-token: ${{ secrets.REFRESH_TOKEN }}
@@ -86,12 +85,12 @@ jobs:
       run: |
         npm ci
         npm run build
-    - name: Upload & release
+    - name: Upload and publish
       uses: mnao305/chrome-extension-upload@v7.0.0
       with:
         file-path: dist/*.zip
-        extension-id: hogefuga(extension id)
-        publisher-id: hogefuga(publisher id)
+        extension-id: YOUR_EXTENSION_ID
+        publisher-id: YOUR_PUBLISHER_ID
         client-id: ${{ secrets.CLIENT_ID }}
         client-secret: ${{ secrets.CLIENT_SECRET }}
         refresh-token: ${{ secrets.REFRESH_TOKEN }}
@@ -126,8 +125,8 @@ jobs:
       uses: mnao305/chrome-extension-upload@v7.0.0
       with:
         file-path: dist/file.zip
-        extension-id: hogefuga(extension id)
-        publisher-id: hogefuga(publisher id)
+        extension-id: YOUR_EXTENSION_ID
+        publisher-id: YOUR_PUBLISHER_ID
         client-id: ${{ secrets.CLIENT_ID }}
         client-secret: ${{ secrets.CLIENT_SECRET }}
         refresh-token: ${{ secrets.REFRESH_TOKEN }}

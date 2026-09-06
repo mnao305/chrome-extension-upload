@@ -2,22 +2,28 @@
 
 This Action allows you to automatically upload and publish browser extensions to the Chrome web store.
 
-This action is a wrapper for [chrome-webstore-upload](https://github.com/fregante/chrome-webstore-upload).
+This action is a wrapper for [chrome-webstore-upload](https://github.com/fregante/chrome-webstore-upload) and uses Chrome Web Store API v2.
+
+## Migrating to v7
+
+- `publisher-id` is now required. Find it under **Publisher > Settings** in the [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/devconsole/).
+- `publish-target` has been removed. Remove it from your workflow and configure visibility in the Developer Dashboard. After changing a published item's visibility, publish it once from the Dashboard before using the API again. Legacy `trustedTesters` settings stop the action before uploading when publishing is enabled.
 
 ## Input variables
 
-| name          | required | description                                                                                                                                                          |
-| ------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| file-path     | true     | The path to the zip file. ex. `dist/hoge.zip`                                                                                                                        |
-| extension-id  | true     |                                                                                                                                                                      |
-| client-id     | true     |                                                                                                                                                                      |
-| client-secret | true     |                                                                                                                                                                      |  |
-| refresh-token | true     |                                                                                                                                                                      |
-| glob          | false    | If you set it to true, you can specify the file as a glob pattern.<br>Please note that only the first match will be uploaded.                                        |
-| publish       | false    | If you set it to false, the extension will not be published. Default as true.<br>Use this option if you want to upload the extension but not publish it for testing. |
+| name           | required | description                                                                                                                                                          |
+| -------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| file-path      | true     | The path to the zip file. ex. `dist/hoge.zip`                                                                                                                        |
+| extension-id   | true     | The extension ID.                                                                                                                                                    |
+| publisher-id   | true     | The publisher ID shown in the Chrome Web Store Developer Dashboard.                                                                                                  |
+| client-id      | true     | The OAuth client ID.                                                                                                                                                 |
+| client-secret  | true     | The OAuth client secret.                                                                                                                                             |
+| refresh-token  | true     | The OAuth refresh token.                                                                                                                                             |
+| glob           | false    | If you set it to true, you can specify the file as a glob pattern.<br>Please note that only the alphabetically first match will be uploaded.                         |
+| publish        | false    | Defaults to `true`. Set to `false` to upload without publishing. A successful publish request may still be pending review. |
 
 Want to know how to make a CLIENT ID, etc.?  
-[Reference link](https://github.com/DrewML/chrome-webstore-upload/blob/master/How%20to%20generate%20Google%20API%20keys.md)
+[Reference link](https://developer.chrome.com/docs/webstore/using-api)
 
 ## Usage
 
@@ -37,8 +43,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-node@v1
+    - uses: actions/checkout@v7
+    - uses: actions/setup-node@v7
       with:
         node-version: 24
     - name: Build
@@ -46,10 +52,11 @@ jobs:
         npm ci
         npm run build
     - name: Upload & release
-      uses: mnao305/chrome-extension-upload@v6.0.0
+      uses: mnao305/chrome-extension-upload@v7.0.0
       with:
         file-path: dist/file.zip
         extension-id: hogefuga(extension id)
+        publisher-id: hogefuga(publisher id)
         client-id: ${{ secrets.CLIENT_ID }}
         client-secret: ${{ secrets.CLIENT_SECRET }}
         refresh-token: ${{ secrets.REFRESH_TOKEN }}
@@ -71,8 +78,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-node@v1
+    - uses: actions/checkout@v7
+    - uses: actions/setup-node@v7
       with:
         node-version: 24
     - name: Build
@@ -80,17 +87,18 @@ jobs:
         npm ci
         npm run build
     - name: Upload & release
-      uses: mnao305/chrome-extension-upload@v6.0.0
+      uses: mnao305/chrome-extension-upload@v7.0.0
       with:
         file-path: dist/*.zip
         extension-id: hogefuga(extension id)
+        publisher-id: hogefuga(publisher id)
         client-id: ${{ secrets.CLIENT_ID }}
         client-secret: ${{ secrets.CLIENT_SECRET }}
         refresh-token: ${{ secrets.REFRESH_TOKEN }}
         glob: true
 ```
 
-Example with `publish` for testing:
+Example: upload without publishing:
 
 ```yaml
 name: Test
@@ -102,60 +110,26 @@ on:
 
 jobs:
   build:
-    name: Publish webextension
+    name: Upload webextension
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-node@v1
+    - uses: actions/checkout@v7
+    - uses: actions/setup-node@v7
       with:
         node-version: 24
     - name: Build
       run: |
         npm ci
         npm run build
-    - name: Upload & release
-      uses: mnao305/chrome-extension-upload@v6.0.0
+    - name: Upload
+      uses: mnao305/chrome-extension-upload@v7.0.0
       with:
         file-path: dist/file.zip
         extension-id: hogefuga(extension id)
+        publisher-id: hogefuga(publisher id)
         client-id: ${{ secrets.CLIENT_ID }}
         client-secret: ${{ secrets.CLIENT_SECRET }}
         refresh-token: ${{ secrets.REFRESH_TOKEN }}
         publish: false
-```
-
-Example with `publish-target` for publishing to `trustedTesters`:
-
-```yaml
-name: Test
-
-on:
-  push:
-    tags:
-      - '*'
-
-jobs:
-  build:
-    name: Publish webextension
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 24
-    - name: Build
-      run: |
-        npm ci
-        npm run build
-    - name: Upload & release
-      uses: mnao305/chrome-extension-upload@v6.0.0
-      with:
-        file-path: dist/file.zip
-        extension-id: hogefuga(extension id)
-        client-id: ${{ secrets.CLIENT_ID }}
-        client-secret: ${{ secrets.CLIENT_SECRET }}
-        refresh-token: ${{ secrets.REFRESH_TOKEN }}
-        publish-target: trustedTesters
 ```

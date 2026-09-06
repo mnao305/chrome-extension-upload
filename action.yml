@@ -11,6 +11,9 @@ inputs:
   extension-id:
     description: 'extension id'
     required: true
+  publisher-id:
+    description: 'publisher id from the Chrome Web Store Developer Dashboard'
+    required: true
   client-id:
     description: 'client id'
     required: true
@@ -28,10 +31,6 @@ inputs:
     description: 'if true package will be automatically published'
     required: false
     default: "true"
-  publish-target:
-    required: false
-    description: 'target of publish (`default` or `trustedTesters`)'
-    default: "default"
 runs:
   using: 'node24'
   main: 'dist/index.js'
